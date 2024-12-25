@@ -1,10 +1,6 @@
 package org.ahad.reactive;
 
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-
-public class Exercise1 {
+public class StreamExercise {
 
     public static void main(String[] args) {
         // Use StreamSources.intNumbersStream() and StreamSources.userStream()

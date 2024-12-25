@@ -63,4 +63,15 @@ public class ReactiveSources {
                 .just(1, 2, 1, 1, 3, 2, 4, 5, 1)
                 .delayElements(Duration.ofSeconds(1));
     }
+
+    public static Flux<String> trumpsTweet() {
+        return Flux.just(
+                "Make America great again",
+                "We will put 10% extra tariff on Chiness products",
+                "Joe Biden is the worst president in American history",
+                "We have a job to do",
+                "You can't let her win"
+        ).delayElements(Duration.ofSeconds(1));
+    }
+
 }

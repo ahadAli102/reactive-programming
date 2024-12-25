@@ -2,6 +2,8 @@ package com.ahad.imperative;
 
 import reactor.core.publisher.Flux;
 
+import java.util.concurrent.CompletableFuture;
+
 public class ReactiveProgramming {
     public static void main(String[] args) {
         Flux<Integer> numberStream = Flux.just(1, 2, 3, 4, 5);
@@ -15,4 +17,15 @@ public class ReactiveProgramming {
                         () -> System.out.println("Processing complete!")
                 );
     }
+
+    /*@GetMapping("/{userId}")
+    public Mono<User> getUserDetails(@PathVariable String userId) {
+        Mono<User> userMono = Mono.fromCallable(() -> usersService.getUser(userId));
+        Mono<UserPreferences> preferencesMono = Mono.fromCallable(() -> userPreferencesService.getPreference(userId));
+        return userMono.zipWith(preferencesMono, (user, preferences) -> {
+            user.setUserPreferences(preferences);
+            return user;
+        });
+    }*/
+
 }
