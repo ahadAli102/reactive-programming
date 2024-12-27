@@ -43,6 +43,35 @@ public class ReactiveSources {
         ).delayElements(Duration.ofSeconds(1));
     }
 
+    public static Mono<User> userMonoWithError() {
+        return Mono.just(
+                new User(1, "Lionel", "Messi")
+        ).map(u -> {
+            if (u.getId() == 1) {
+                throw new RuntimeException("Exception occured inside ");
+            } else {
+                return u;
+            }
+        }).delayElement(Duration.ofSeconds(1));
+    }
+
+    public static Flux<User> userFluxWithError() {
+        return Flux.just(
+                new User(1, "Lionel", "Messi"),
+                new User(2, "Cristiano", "Ronaldo"),
+                new User(2, "Diego", "Maradona"),
+                new User(4, "Zinedine", "Zidane"),
+                new User(5, "Jürgen", "Klinsmann"),
+                new User(6, "Gareth", "Bale")
+        ).map(u -> {
+            if (u.getId() == 4) {
+                throw new RuntimeException("Exception occured inside ");
+            } else {
+                return u;
+            }
+        }).delayElements(Duration.ofSeconds(1));
+    }
+
     public static Mono<User> userMono() {
         return Mono.just(
                 new User(1, "Lionel", "Messi")

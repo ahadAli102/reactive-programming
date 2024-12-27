@@ -6,11 +6,12 @@ public class Exercise5 {
 
     public static void main(String[] args) throws IOException {
 
-        // Print value from ReactiveSources.intNumberMono()
-        ReactiveSources.intNumberMono().subscribe(System.out::println);
-        Integer n = ReactiveSources.intNumberMono().block();
-
-        System.out.println("Number is: " + n);
+        // Simulate terminal events
+        ReactiveSources.userFluxWithError().subscribe(
+                System.out::println,
+                System.out::println,
+                () -> System.out.println("Complete")
+        );
         System.out.println("Press a key to end");
         System.in.read();
     }
