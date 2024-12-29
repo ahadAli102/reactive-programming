@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.CompletableFuture;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -25,6 +27,22 @@ public class UserController {
     public User getUser(@PathVariable("userId") String userId) {
         User user = userService.getUser(userId);
         UserPreferences userPreferences = userPreferencesService.getUserPreferences(userId);
+        user.setUserPreferences(userPreferences);
+        return user;
+    }
+
+    @GetMapping("/v2/{userId}")
+    public User getUserV2(@PathVariable("userId") String userId) {
+        CompletableFuture<User> userFuture = CompletableFuture.supplyAsync(
+                () -> userService.getUser(userId)
+        );
+        CompletableFuture<UserPreferences> userPreferencesFuture = CompletableFuture.supplyAsync(
+                () -> userPreferencesService.getUserPreferences(userId)
+        );
+        CompletableFuture<Void> bothFutures = CompletableFuture.allOf(userFuture, userPreferencesFuture);
+        bothFutures.join();
+        User user = userFuture.join();
+        UserPreferences userPreferences = userPreferencesFuture.join();
         user.setUserPreferences(userPreferences);
         return user;
     }
