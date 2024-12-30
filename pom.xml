@@ -13,6 +13,7 @@
         <module>imperative</module>
         <module>reactive</module>
         <module>blocking-web</module>
+        <module>non-blocking-web</module>
     </modules>
 
     <properties>
